@@ -1,0 +1,92 @@
+# ImpEx for Points of Service
+
+# Macros / Replacement Parameter definitions
+$storeUid=asianpaints
+$productCatalog=asianpaintsProductCatalog
+
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$storeImage=storeImage(qualifier, $catalogVersion)
+
+$standardHours=asianpaints-us-standard-hours
+$weekendHours=asianpaints-us-weekend-hours
+
+INSERT_UPDATE OpeningSchedule;code[unique=true];
+;$standardHours;
+;$weekendHours;
+
+INSERT_UPDATE WeekdayOpeningDay;openingSchedule(code)[unique=true];dayOfWeek(code)[unique=true];openingTime[dateformat=hh:mm];closingTime[dateformat=hh:mm];
+;$standardHours;MONDAY   ; 09:00; 20:00
+;$standardHours;TUESDAY  ; 09:00; 20:00
+;$standardHours;WEDNESDAY; 09:00; 20:00
+;$standardHours;THURSDAY ; 09:00; 20:00
+;$standardHours;FRIDAY   ; 09:00; 20:00
+;$standardHours;SATURDAY ; 10:00; 20:00
+
+;$weekendHours;MONDAY   ; 09:00; 20:00
+;$weekendHours;TUESDAY  ; 09:00; 20:00
+;$weekendHours;WEDNESDAY; 09:00; 20:00
+;$weekendHours;THURSDAY ; 09:00; 20:00
+;$weekendHours;FRIDAY   ; 09:00; 20:00
+;$weekendHours;SATURDAY ; 10:00; 20:00
+;$weekendHours;SUNDAY   ; 10:00; 16:00
+
+INSERT_UPDATE SpecialOpeningDay;openingSchedule(code)[unique=true];date[unique=true,dateformat=dd.MM.yyyy];closed;openingTime[dateformat=hh:mm];closingTime[dateformat=hh:mm]
+;$standardHours; 01.01.2014 ;true
+;$standardHours; 14.01.2014 ;true
+;$standardHours; 11.02.2014 ;true
+;$standardHours; 20.03.2014 ;true
+;$standardHours; 29.04.2014 ;true
+;$standardHours; 03.05.2014 ;true
+;$standardHours; 04.05.2014 ;true
+;$standardHours; 05.05.2014 ;true
+;$standardHours; 15.07.2014 ;true
+;$standardHours; 16.09.2014 ;true
+;$standardHours; 23.09.2014 ;true
+;$standardHours; 14.10.2014 ;true
+;$standardHours; 03.11.2014 ;true
+;$standardHours; 23.11.2014 ;true
+;$standardHours; 23.12.2014 ;true
+
+;$weekendHours; 01.01.2014 ;true
+;$weekendHours; 14.01.2014 ;true
+;$weekendHours; 11.02.2014 ;true
+;$weekendHours; 20.03.2014 ;true
+;$weekendHours; 29.04.2014 ;true
+;$weekendHours; 03.05.2014 ;true
+;$weekendHours; 04.05.2014 ;true
+;$weekendHours; 05.05.2014 ;true
+;$weekendHours; 15.07.2014 ;true
+;$weekendHours; 16.09.2014 ;true
+;$weekendHours; 23.09.2014 ;true
+;$weekendHours; 14.10.2014 ;true
+;$weekendHours; 03.11.2014 ;true
+;$weekendHours; 23.11.2014 ;true
+;$weekendHours; 23.12.2014 ;true
+
+
+INSERT_UPDATE PointOfService;name[unique=true];type(code);address(&addrID);latitude;longitude;geocodeTimestamp[dateformat=dd-MM-yyyy];openingSchedule(code);basestore(uid)[default=$storeUid];features(code)
+;PartyCity1;STORE;addr001;35,7091;139,6732;29-04-2025;$standardHours
+;ColoursCity1;STORE;addr002;35,6673;139,75429;29-04-2025;$standardHours
+
+INSERT_UPDATE Address;&addrID;streetname;streetnumber;postalcode[unique=true];town[unique=true];country(isocode);region(isocode);phone1;owner(PointOfService.name)[unique=true]
+;addr001;Sunset Street ;13;;New York;US;;+1 1988 3600;PartyCity1
+;addr002;Eleventh Street;20;;New jersy;US;;+1 4649 8891;ColoursCity1
+
+
+
+INSERT_UPDATE StoreLocatorFeature;code[unique=true]
+;wheelchair
+;creche
+;sundayWorkshops
+;buyOnlinePickupInStore
+
+UPDATE PointOfService;name[unique=true];features(code);
+;PartyCity1;wheelchair,creche,buyOnlinePickupInStore;
+;ColoursCity1;wheelchair,creche,buyOnlinePickupInStore;
+
+
+INSERT_UPDATE PoS2WarehouseRel;source(name)[unique=true];target(code)[unique=true]
+;PartyCity1;warehouse_e
+;ColoursCity1;warehouse_e
+
+

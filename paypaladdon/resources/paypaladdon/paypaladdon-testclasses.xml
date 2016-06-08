@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testclasses><paypaladdon><testclass>com.paypal.hybris.addon.facades.PayPalPaymentFacadeIntegrationTest</testclass><testclass>com.paypal.hybris.addon.facades.PayPalCheckoutFacadeIntegrationTest</testclass><testclass>com.paypal.hybris.addon.jalo.PaypaladdonTest</testclass></paypaladdon></testclasses>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2000-2015 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders"
+			type="java.util.List&lt;com.asianpaints.facades.product.data.GenderData>" />
+		<property name="isComingSoon" type="Boolean" />
+		<property name="addons" type="java.util.List&lt;String>" />
+	</bean>
+
+	<bean class="com.asianpaints.facades.product.data.GenderData">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+	</bean>
+	<bean class="com.asianpaints.facades.product.data.ComingSoonCustomerData">
+		<property name="firstName" type="String" />
+		<property name="lastName" type="String" />
+		<property name="emailId" type="String" />
+		<property name="productCode" type="String" />
+		<property name="productName" type="String" />
+	</bean>
+	
+	<!-- Added For Contact Number && Date Of Birth -->
+	<bean class="de.hybris.platform.commercefacades.user.data.RegisterData">
+	<property name="contactNumber" type="String" />
+	<property name="dateOfBirth" type="java.util.Date" />
+	</bean>
+	
+	<!--Added For Contact Number  -->
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData"
+	      extends="de.hybris.platform.commercefacades.user.data.PrincipalData">
+		<property name="contactNumber" type="String"/>
+		<property name="dateOfBirth" type="java.util.Date" />
+	</bean>
+	
+	<!-- <bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
+		<property name="cartAddons" type="java.util.List&lt;String>">
+			<description>The CartAddonsModel</description>
+		</property>
+	</bean> -->
+	
+	
+	<bean class="de.hybris.platform.commerceservices.service.data.CommerceCartParameter">
+		<property name="selectedAddons" type="java.util.List&lt;String>">
+			<description>The Selected Addons Model</description>
+		</property>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="addonsOrderEntry" type="java.util.List&lt;String>"/></bean>
+		
+		
+<bean class="de.hybris.platform.commerceservices.order.CommerceCartModification">
+		<property name="addons" type="java.util.List&lt;String>"/>
+		</bean>		
+	
+</beans>
+

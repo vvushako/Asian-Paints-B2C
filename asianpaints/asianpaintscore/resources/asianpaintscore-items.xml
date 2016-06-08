@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2015 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+
+	<collectiontypes>
+		<collectiontype code="GenderList" elementtype="Gender" autocreate="true" generate="true" type="list"/>
+		<collectiontype code="SwatchColorSet" elementtype="SwatchColorEnum" autocreate="true" generate="true"
+		                type="set"/>
+		<collectiontype code="ProductAddonsCollectionList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/>
+	 <!-- <collectiontype code="CartAddonsCollectionList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/> --> 
+		<collectiontype code="AbstractOrderCollectionList" elementtype="java.lang.String" autocreate="true" generate="true" type="list"/>
+	</collectiontypes>
+
+
+	<enumtypes>
+		<enumtype generate="true" code="SwatchColorEnum" autocreate="true" dynamic="true">
+			<value code="BLACK"/>
+			<value code="BLUE"/>
+			<value code="BROWN"/>
+			<value code="GREEN"/>
+			<value code="GREY"/>
+			<value code="ORANGE"/>
+			<value code="PINK"/>
+			<value code="PURPLE"/>
+			<value code="RED"/>
+			<value code="SILVER"/>
+			<value code="WHITE"/>
+			<value code="YELLOW"/>
+		</enumtype>
+	</enumtypes>
+
+	<itemtypes>
+
+		<!-- Add your item definitions here -->
+
+
+		<!-- TypeGroups are for structure of this file only -->
+
+		<typegroup name="Apparel">
+			<itemtype code="ApparelProduct" extends="Product"
+			          autocreate="true" generate="true"
+			          jaloclass="com.asianpaints.core.jalo.ApparelProduct">
+				<description>Base apparel product extension that contains additional attributes.</description>
+				<attributes>
+					<attribute qualifier="genders" type="GenderList">
+						<description>List of genders that the ApparelProduct is designed for</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+				</attributes>
+			</itemtype>
+
+			<itemtype code="ApparelStyleVariantProduct" extends="VariantProduct"
+			          autocreate="true" generate="true"
+			          jaloclass="com.asianpaints.core.jalo.ApparelStyleVariantProduct">
+				<description>Apparel style variant type that contains additional attribute describing variant style.
+				</description>
+				<attributes>
+					<attribute qualifier="style" type="localized:java.lang.String"
+					           metatype="VariantAttributeDescriptor">
+						<description>Color/Pattern of the product.</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+
+					<attribute qualifier="swatchColors" type="SwatchColorSet">
+						<description>A normalized color mapping to a standardized front-end navigable name.
+						</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+				</attributes>
+
+			</itemtype>
+
+			<itemtype code="ApparelSizeVariantProduct" extends="ApparelStyleVariantProduct"
+			          autocreate="true" generate="true"
+			          jaloclass="com.asianpaints.core.jalo.ApparelSizeVariantProduct">
+				<description>Apparel size variant type that contains additional attribute describing variant size.
+				</description>
+				<attributes>
+					<attribute qualifier="size" type="localized:java.lang.String"
+					           metatype="VariantAttributeDescriptor">
+						<description>Size of the product.</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+				</attributes>
+			</itemtype>
+		</typegroup>
+		
+<!-- Extra Added Start -->
+
+	<typegroup name="Asianpaints">
+	
+	<!--For Coming Soon  -->
+        <itemtype code="AsianpaintsProduct" extends="Product"
+			          autocreate="true" generate="true"
+			          jaloclass="com.asianpaints.core.jalo.AsianpaintsProduct">
+				<description>Base asianpaints product extension that contains additional attributes.</description>
+				<attributes>
+					<attribute qualifier="genders" type="GenderList">
+						<description>List of products that the AsianpaintsProduct is designed for</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>								
+					
+					<attribute qualifier="isComingSoon" type="java.lang.Boolean">
+						<description>Products which are coming soon.</description>
+						<modifiers optional="false" initial ="false"/>
+						<persistence type="property"/>
+						<defaultvalue>Boolean.FALSE</defaultvalue>
+					</attribute>
+				</attributes>
+							
+			</itemtype>
+			<!--End of Coming Soon  -->
+			
+			<!--Contact Number && Date Of Birth -->
+			 <itemtype code="Customer"
+                  extends="User"
+                  autocreate="false"
+                  generate="false">
+            <attributes>
+                <!--  auto ID which is generated by NumberSeries -->
+                <attribute qualifier="contactNumber" type="java.lang.String">
+                    <modifiers />
+                    <persistence type="property"/>
+                </attribute>
+                <attribute qualifier="dateOfBirth" type="java.util.Date">
+                    <modifiers />
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        	
+		<!--For Variants  -->
+			<itemtype code="AsianpaintsStyleVariantProduct" extends="VariantProduct"
+			          autocreate="true" generate="true"
+			          jaloclass="com.asianpaints.core.jalo.AsianpaintsStyleVariantProduct">
+				<description>Asianpaints style variant type that contains additional attribute describing variant style.
+				</description>
+				<attributes>
+					<attribute qualifier="style" type="localized:java.lang.String"
+					           metatype="VariantAttributeDescriptor">
+						<description>Color/Pattern of the product.</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+
+					<attribute qualifier="swatchColors" type="SwatchColorSet">
+						<description>A normalized color mapping to a standardized front-end navigable name.
+						</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+				</attributes>
+
+			</itemtype>
+
+			<itemtype code="AsianpaintsSizeVariantProduct" extends="AsianpaintsStyleVariantProduct"
+			          autocreate="true" generate="true"
+			          jaloclass="com.asianpaints.core.jalo.AsianpaintsSizeVariantProduct">
+				<description>Asianpaints size variant type that contains additional attribute describing variant size.
+				</description>
+				<attributes>
+					<attribute qualifier="size" type="localized:java.lang.String"
+					           metatype="VariantAttributeDescriptor">
+						<description>Size of the product.</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+					
+					<attribute qualifier="addons" type="ProductAddonsCollectionList">
+						<description>Adding extra things for selected product.</description>
+						<persistence type="property"/>
+						<modifiers read="true" write="true" optional="true" />						
+					</attribute>
+					
+				</attributes>
+			</itemtype>
+			
+<!-- Popup Cart Addons -->        
+        <itemtype code="AbstractOrderEntry"
+				  extends="GenericItem"
+				  abstract="true"
+                  autocreate="false"
+                  generate="false">
+            <attributes>
+                <attribute qualifier="selectedAddons" type="AbstractOrderCollectionList">
+                    <modifiers read="true" write="true" search="true" removable="true" 
+                               />
+                    <persistence type="property"/>
+                </attribute>
+            </attributes>
+        </itemtype>
+        
+        
+		</typegroup>
+		<!--End Of variants  -->
+		
+		
+		
+		<!-- NotifyMe Products -->
+<typegroup name="ComingSoonCustomer">
+	<itemtype code="ComingSoonCustomer" autocreate="true" generate="true">
+		<description>NotifyMe Products</description>
+		<deployment table="ComingSoonCustomer" typecode="10226" />
+		<attributes>
+			<attribute qualifier="firstName" type="java.lang.String">
+				<modifiers read="true" write="true" optional="true" />
+				<persistence type="property" />
+			</attribute>
+			<attribute qualifier="lastName" type="java.lang.String">
+				<modifiers read="true" write="true" optional="true" />
+				<persistence type="property" />
+			</attribute>
+			<attribute qualifier="emailId" type="java.lang.String">
+				<modifiers read="true" write="true" optional="true" unique="true"/>
+				<persistence type="property" />
+			</attribute>
+			<attribute qualifier="productCode" type="java.lang.String">
+				<modifiers read="true" write="true" optional="true" unique="true" />
+				<persistence type="property" />
+			</attribute>
+			<attribute qualifier="productName" type="java.lang.String">
+				<modifiers read="true" write="true" optional="true" />
+				<persistence type="property" />
+			</attribute>
+			
+			<attribute qualifier="isExported" type="java.lang.Boolean">
+			<description>Products which are coming soon.</description>
+				<modifiers />
+				<persistence type="property" />
+			<defaultvalue>Boolean.FALSE</defaultvalue>
+			</attribute>
+			
+			
+		</attributes>
+	</itemtype>
+</typegroup>
+<!-- Extra Added End -->
+
+		<typegroup name="Electronics">
+			<itemtype code="ElectronicsColorVariantProduct" extends="VariantProduct"
+          autocreate="true" generate="true"
+          jaloclass="com.asianpaints.core.jalo.ElectronicsColorVariantProduct">
+				 <description>Electronics color variant type that contains additional attribute describing variant color.
+				</description>
+				<attributes>
+					<attribute qualifier="color" type="localized:java.lang.String"
+					           metatype="VariantAttributeDescriptor">
+						<description>Color of the product.</description>
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+				</attributes>
+			</itemtype>
+		</typegroup>
+
+	</itemtypes>
+</items>

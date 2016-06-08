@@ -1,0 +1,100 @@
+# ImpEx for Importing Products
+
+# Macros / Replacement Parameter definitions
+$productCatalog=asianpaintsProductCatalog
+$productCatalogName=Asianpaints Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$taxGroup=Europe1PriceFactory_PTG(code)[default=eu-vat-full]
+
+# Insert Products
+#INSERT_UPDATE Product;code[unique=true];$supercategories;manufacturerName;manufacturerAID;unit(code);ean;variantType(code);$catalogVersion;$approved
+
+#INSERT_UPDATE ApparelProduct;code[unique=true];$catalogVersion;unit(code)[default='pieces'];$prices;supercategories(code,$catalogVersion);varianttype(code);$approved;$taxGroup;ean
+#;11001;;pieces;28,31 GBP , 34,95 EUR;11;ApparelStyleVariantProduct;;;
+
+INSERT_UPDATE AsianpaintsProduct;code[unique=true];$catalogVersion;unit(code)[default='pieces'];$prices;$supercategories;variantType(code);manufacturerName;$approved;$taxGroup;ean;isComingSoon[default='false']
+;0001;;pieces;;101;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0002;;pieces;;102;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0003;;pieces;;201;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0004;;pieces;;202;AsianpaintsStyleVariantProduct;asianpaints;;;;
+
+;0005;;pieces;;101;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0006;;pieces;;202;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0007;;pieces;;201;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0008;;pieces;;102;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0009;;pieces;;202;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0010;;pieces;;101;AsianpaintsStyleVariantProduct;asianpaints;;;;
+;0011;;pieces;;102;AsianpaintsStyleVariantProduct;asianpaints;;;;
+
+##Coming Soon
+#;0012;;pieces;;101;AsianpaintsStyleVariantProduct;asianpaints;;;;true
+#;0013;;pieces;;102;AsianpaintsStyleVariantProduct;asianpaints;;;;true
+
+
+# Create AsianpaintsStyleVariantProduct variants
+INSERT_UPDATE AsianpaintsStyleVariantProduct;code[unique=true];$catalogVersion;$baseProduct;supercategories(code,$catalogVersion);swatchColors(code);unit(code)[default='pieces'];varianttype(code);$prices;$approved
+
+#INSERT_UPDATE ApparelStyleVariantProduct;    code[unique=true];$catalogVersion;$baseProduct;supercategories(code,$catalogVersion);swatchColors(code);unit(code)[default='pieces'];varianttype(code);$prices;$approved
+#;11001_white;;11001;11;WHITE;pieces;ApparelSizeVariantProduct;28,31 GBP , 34,95 EUR;
+
+;B0001;;0001;101;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0001;;0001;101;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0001;;0001;101;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0002;;0002;102;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0002;;0002;102;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0002;;0002;102;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0003;;0003;201;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0003;;0003;201;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0003;;0003;201;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0004;;0004;202;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0004;;0004;202;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0004;;0004;202;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0005;;0005;101;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0005;;0005;101;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0005;;0005;101;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0006;;0006;202;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0006;;0006;202;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0006;;0006;202;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0007;;0007;201;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0007;;0007;201;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0007;;0007;201;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0008;;0008;102;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0008;;0008;102;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0008;;0008;102;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0009;;0009;202;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0009;;0009;202;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0009;;0009;202;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0010;;0010;101;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0010;;0010;101;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0010;;0010;101;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+;B0011;;0011;102;BLUE;pieces;AsianpaintsSizeVariantProduct;;
+;R0011;;0011;102;RED;pieces;AsianpaintsSizeVariantProduct;;
+;G0011;;0011;102;GREEN;pieces;AsianpaintsSizeVariantProduct;;
+
+
+# Create AsianpaintsSizeVariantProduct variants
+
+#INSERT_UPDATE ApparelSizeVariantProduct    ;code[unique=true];$catalogVersion;$baseProduct;supercategories(code,$catalogVersion);unit(code)[default='pieces'];$prices;;$approved;$taxGroup
+#;110010001;;11001_white;11;pieces;28,31 GBP , 34,95 EUR;;;
+INSERT_UPDATE AsianpaintsSizeVariantProduct;code[unique=true];$catalogVersion;$baseProduct;supercategories(code,$catalogVersion);unit(code)[default='pieces'];$prices;;$approved;$taxGroup;manufacturerName
+;B0001_M;;B0001;101;pieces;;;;;asianpaints
+;B0001_L;;B0001;101;pieces;;;;;asianpaints
+;R0001_M;;R0001;101;pieces;;;;;asianpaints
+;R0001_L;;R0001;101;pieces;;;;;asianpaints
+;G0001_M;;G0001;101;pieces;;;;;asianpaints
+;G0001_L;;G0001;101;pieces;;;;;asianpaints
+
